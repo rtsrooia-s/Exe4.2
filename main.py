@@ -34,7 +34,7 @@ class IceCreamWindow(QWidget):
 
         self.about_btn = QPushButton("About")
         self.about_btn.setObjectName("aboutBtn")
-        self.about_btn.clicked.connect(self.on_open_about)
+        self.about_btn.clicked.connect(self.open_about_window)
 
         top_layout.addWidget(self.select_file_btn)
         top_layout.addStretch()
