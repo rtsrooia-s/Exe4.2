@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QApplication
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt
 
-GITHUB_URL = "https://github.com/rtsrooia-s/Exe4.1"
+GITHUB_URL = "https://github.com/rtsrooia-s/Exe4.2"
 
 
 class AboutWindow(QWidget):

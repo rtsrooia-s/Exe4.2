@@ -85,10 +85,9 @@ class IceCreamWindow(QWidget):
 
             self.plot_ice_cream_graph()
 
-    def on_open_about(self):
-        if self.about_window is None:
+    def open_about_window(self):
             self.about_window = AboutWindow(self)
-        self.about_window.show()
+            self.about_window.show()
 
 
 if __name__ == "__main__":
