@@ -2,6 +2,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 import csv
+import numpy as np
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg, NavigationToolbar2QT
 from PySide6.QtWidgets import (QApplication, QFileDialog, QHBoxLayout, QPushButton, QVBoxLayout, QWidget,)
 
@@ -75,15 +76,33 @@ class IceCreamWindow(QWidget):
             self.load_data_from_csv(file_path)
 
     def load_data_from_csv(self, file_path):
-        self.temperatures
-        self.revenues
+        self.temperatures.clear()
+        self.revenues.clear()
 
-        with open(file_path, "r", encoding = "utf-8") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             for row in csv.DictReader(f):
-                self.temperatures.append(float(row["Temperture"]))
+                self.temperatures.append(float(row["Temperature"]))
                 self.revenues.append(float(row["Revenue"]))
 
-            self.plot_ice_cream_graph()
+        self.plot_ice_cream_graph()
+
+    def plot_ice_cream_graph(self):
+        self.ax.clear()
+        self.ax.scatter(self.temperatures, self.revenues, s=1)
+
+        if len(self.temperatures) > 1:
+            m, b = np.polyfit(self.temperatures, self.revenues, 1)
+            x_line = np.linspace(min(self.temperatures), max(self.temperatures), 100)
+            y_line = m * x_line + b
+            self.ax.plot(x_line, y_line, color="red", label=f"y = {m:.2f}x + {b:.2f}")
+            self.ax.legend()
+
+        self.ax.spines["top"].set_visible(False)
+        self.ax.spines["right"].set_visible(False)
+        self.ax.set_title("Ice Cream Revenue vs Temperature")
+        self.ax.set_xlabel("Temperature")
+        self.ax.set_ylabel("Revenue")
+        self.canvas.draw()
 
     def open_about_window(self):
             self.about_window = AboutWindow(self)
